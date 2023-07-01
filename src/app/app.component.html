@@ -12,14 +12,14 @@
       </mat-form-field>
     </form>
 
-    <mat-selection-list>
-      <mat-list-option (selectedChange)="setCompleted($event)">
-        Shop for groceries
-      </mat-list-option>
-      <mat-list-option (selectedChange)="setCompleted($event)">
-        Clean up the house
-      </mat-list-option>
-    </mat-selection-list>
+    <mat-list>
+      <mat-list-item *ngFor="let todo of todos; index as index; trackBy: trackBy">
+        <mat-checkbox [checked]="todo.isCompleted ?? false"
+                      (change)="setIsCompleted(todo.id, $event.checked, index)">
+          {{todo.title}}
+        </mat-checkbox>
+      </mat-list-item>
+    </mat-list>
   </mat-card-content>
   <mat-card-actions align="end">
     <button mat-button

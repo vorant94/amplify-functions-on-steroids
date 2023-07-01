@@ -1,0 +1,17 @@
+{
+  "projectName": "functionsonsteroids",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "angular",
+    "config": {
+      "SourceDir": "src",
+      "DistributionDir": "dist/amplify-functions-on-steroids",
+      "BuildCommand": "npm run-script build",
+      "StartCommand": "ng serve"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}

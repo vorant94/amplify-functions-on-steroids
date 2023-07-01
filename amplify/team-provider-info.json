@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-functionsonsteroids-dev-184603-authRole",
+      "UnauthRoleArn": "arn:aws:iam::937394774638:role/amplify-functionsonsteroids-dev-184603-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::937394774638:role/amplify-functionsonsteroids-dev-184603-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
+      "UnauthRoleName": "amplify-functionsonsteroids-dev-184603-unauthRole",
+      "StackName": "amplify-functionsonsteroids-dev-184603",
+      "StackId": "arn:aws:cloudformation:eu-central-1:937394774638:stack/amplify-functionsonsteroids-dev-184603/63ab0400-1826-11ee-b650-02755b4bda78",
+      "AmplifyAppId": "d9lai0cjv18h5"
+    },
+    "categories": {
+      "api": {
+        "functionsonsteroids": {}
+      }
+    }
+  }
+}
