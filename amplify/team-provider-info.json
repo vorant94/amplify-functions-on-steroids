@@ -14,6 +14,20 @@
     "categories": {
       "api": {
         "functionsonsteroids": {}
+      },
+      "function": {
+        "fosMarkAllAsComplete": {
+          "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
+          "s3Key": "amplify-builds/fosMarkAllAsComplete-526d5235314d4a2f6136-build.zip"
+        },
+        "fosDeleteAllCompleted": {
+          "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
+          "s3Key": "amplify-builds/fosDeleteAllCompleted-73747a4941694d776151-build.zip"
+        },
+        "fosToggleIsCompleted": {
+          "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
+          "s3Key": "amplify-builds/fosToggleIsCompleted-384379663773476c452f-build.zip"
+        }
       }
     }
   }

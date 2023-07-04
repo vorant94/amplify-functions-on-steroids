@@ -1,0 +1,155 @@
+#
+# AppSync directives, scalar types and more
+#
+
+# ---
+# @see https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
+# ---
+scalar AWSDate
+scalar AWSTime
+scalar AWSDateTime
+scalar AWSTimestamp
+scalar AWSEmail
+scalar AWSJSON
+scalar AWSURL
+scalar AWSPhone
+scalar AWSIPAddress
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/data-modeling/#how-it-works
+# ---
+directive @model(
+  queries: ModelQueryMap
+  mutations: ModelMutationMap
+  subscriptions: ModelSubscriptionMap
+  timestamps: TimestampConfiguration
+) repeatable on OBJECT
+
+input ModelMutationMap {
+  create: String
+  update: String
+  delete: String
+}
+
+input ModelQueryMap {
+  get: String
+  list: String
+}
+
+input ModelSubscriptionMap {
+  onCreate: [String]
+  onUpdate: [String]
+  onDelete: [String]
+  level: ModelSubscriptionLevel
+}
+
+enum ModelSubscriptionLevel {
+  off
+  public
+  on
+}
+
+input TimestampConfiguration {
+  createdAt: String
+  updatedAt: String
+}
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/authorization-rules/#how-it-works
+# ---
+# When applied to a type, augments the application with
+# owner and group-based authorization rules.
+directive @auth(rules: [AuthRule!]!) repeatable on OBJECT | FIELD_DEFINITION
+input AuthRule {
+  allow: AuthStrategy!
+  provider: AuthProvider
+  ownerField: String # defaults to "owner" when using owner auth
+  identityClaim: String # defaults to "username" when using owner auth
+  groupClaim: String # defaults to "cognito:groups" when using Group auth
+  groups: [String] # Required when using Static Group auth
+  groupsField: String # defaults to "groups" when using Dynamic Group auth
+  operations: [ModelOperation] # Required for finer control
+}
+
+enum AuthStrategy {
+  owner
+  groups
+  private
+  public
+}
+enum AuthProvider {
+  apiKey
+  iam
+  oidc
+  userPools
+}
+enum ModelOperation {
+  create
+  update
+  delete
+  read
+}
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/custom-business-logic/#how-it-works
+# ---
+directive @function(name: String!, region: String) on FIELD_DEFINITION
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/custom-business-logic/#how-it-works-1
+# ---
+directive @http(
+  method: HttpMethod
+  url: String!
+  headers: [HttpHeader]
+) on FIELD_DEFINITION
+enum HttpMethod {
+  PUT
+  POST
+  GET
+  DELETE
+  PATCH
+}
+input HttpHeader {
+  key: String
+  value: String
+}
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/search-and-result-aggregations/#how-it-works
+# ---
+# Streams data from DynamoDB to OpenSearch and exposes search capabilities.
+directive @searchable(queries: SearchableQueryMap) repeatable on OBJECT
+input SearchableQueryMap {
+  search: String
+}
+
+# ---
+# @see https://docs.amplify.aws/cli/graphql/connect-to-machine-learning-services/#how-it-works
+# ---
+directive @predictions(actions: [PredictionsActions!]!) on FIELD_DEFINITION
+enum PredictionsActions {
+  identifyText # uses Amazon Rekognition to detect text
+  identifyLabels # uses Amazon Rekognition to detect labels
+  convertTextToSpeech # uses Amazon Polly in a lambda to output a presigned url to synthesized speech
+  translateText # uses Amazon Translate to translate text from source to target language
+}
+
+# ---
+# @see https://github.com/aws-amplify/amplify-cli/tree/master/packages/amplify-graphql-relational-transformer
+# ---
+directive @hasOne(fields: [String!]) on FIELD_DEFINITION
+directive @hasMany(indexName: String, fields: [String!], limit: Int = 100) on FIELD_DEFINITION
+directive @belongsTo(fields: [String!]) on FIELD_DEFINITION
+directive @manyToMany(relationName: String!, limit: Int = 100) on FIELD_DEFINITION
+
+# ---
+# @see https://github.com/aws-amplify/amplify-cli/tree/master/packages/amplify-graphql-index-transformer
+# ---
+directive @primaryKey(sortKeyFields: [String]) on FIELD_DEFINITION
+directive @index(name: String, sortKeyFields: [String], queryField: String) on FIELD_DEFINITION
+
+# ---
+# @see https://github.com/aws-amplify/amplify-cli/tree/master/packages/amplify-graphql-default-value-transformer
+# ---
+directive @default(value: String) on FIELD_DEFINITION

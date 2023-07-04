@@ -3,3 +3,12 @@ type Todo @model @auth(rules: [ { allow: public } ]) {
   title: String!
   isCompleted: Boolean
 }
+
+type Mutation {
+  deleteAllCompleted: Boolean
+    @function(name: "fosDeleteAllCompleted-${env}")
+  markAllAsComplete: Boolean
+    @function(name: "fosMarkAllAsComplete-${env}")
+  toggleIsCompleted(id: ID!): Todo
+    @function(name: "fosToggleIsCompleted-${env}")
+}

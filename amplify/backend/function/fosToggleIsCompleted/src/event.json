@@ -1,0 +1,50 @@
+{
+  "typeName": "Mutation",
+  "fieldName": "toggleIsCompleted",
+  "arguments": {
+    "id": "cff5b25c-8bcd-431d-a270-dbd2b5de0314"
+  },
+  "identity": null,
+  "source": null,
+  "request": {
+    "headers": {
+      "x-forwarded-for": "46.120.6.170, 130.176.155.88",
+      "sec-ch-ua-mobile": "?0",
+      "cloudfront-viewer-country": "IL",
+      "cloudfront-is-tablet-viewer": "false",
+      "dnt": "1",
+      "x-amzn-requestid": "d499b6c4-1412-4ecc-8993-7c8a4a1d8cea",
+      "via": "2.0 0d0af2eea2f20e46e2262385b289cbae.cloudfront.net (CloudFront)",
+      "cloudfront-forwarded-proto": "https",
+      "origin": "http://localhost:4200",
+      "content-length": "232",
+      "x-forwarded-proto": "https",
+      "accept-language": "en-US,en;q=0.9,ru;q=0.8,he;q=0.7,uk;q=0.6",
+      "host": "kydo7tpurnhqrkvnvh6rcl22ja.appsync-api.eu-central-1.amazonaws.com",
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+      "cloudfront-is-mobile-viewer": "false",
+      "accept": "application/json, text/plain, */*",
+      "cloudfront-viewer-asn": "12400",
+      "cloudfront-is-smarttv-viewer": "false",
+      "x-amzn-appsync-is-vpce-request": "false",
+      "accept-encoding": "gzip, deflate, br",
+      "referer": "http://localhost:4200/",
+      "x-api-key": "da2-vqqho7q2r5gmlbf4vl7qxo7yra",
+      "content-type": "application/json; charset=UTF-8",
+      "sec-fetch-mode": "cors",
+      "x-amzn-trace-id": "Root=1-64a42aea-5e79d8887a1f982e21be5358",
+      "x-amz-cf-id": "5hkiL6XefvY0O1vGTT0ahcDrrm3msmmnqeRAUCEeleun-LdzAoL28A==",
+      "sec-fetch-dest": "empty",
+      "x-amz-user-agent": "aws-amplify/5.3.3 framework/3",
+      "sec-ch-ua-platform": "\"macOS\"",
+      "cloudfront-is-desktop-viewer": "true",
+      "sec-fetch-site": "cross-site",
+      "sec-ch-ua": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"",
+      "x-forwarded-port": "443"
+    },
+    "domainName": null
+  },
+  "prev": {
+    "result": {}
+  }
+}

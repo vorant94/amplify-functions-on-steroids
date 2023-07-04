@@ -8,14 +8,12 @@ import {APIService, ListTodosQuery, Todo} from "./API.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private api = inject(APIService);
-
   protected todos: NonNullable<ListTodosQuery['items'][number]>[] = [];
-
+  private fb = inject(FormBuilder);
   protected form = this.fb.group({
     title: this.fb.control('', {nonNullable: true, validators: [Validators.required]})
   })
+  private api = inject(APIService);
 
   async ngOnInit(): Promise<void> {
     this.todos = (await this.api.ListTodos()).items
@@ -29,20 +27,29 @@ export class AppComponent implements OnInit {
     this.form.reset();
   }
 
-  protected async setIsCompleted(id: string, value: boolean, index: number): Promise<void> {
-    const todo = await this.api.UpdateTodo({id, isCompleted: value});
+  protected async toggleIsCompleted(index: number): Promise<void> {
+    const {id} = this.todos[index];
+    const todo = await this.api.ToggleIsCompleted(id);
+
     this.todos[index] = todo;
   }
 
-  protected markAllAsComplete(): void {
-    console.log('marking all as complete...')
+  protected async markAllAsComplete(): Promise<void> {
+    await this.api.MarkAllAsComplete();
+
+    this.todos = this.todos.map(todo => ({
+      ...todo,
+      isCompleted: true,
+    }));
   }
 
-  protected deleteAllCompleted(): void {
-    console.log('deleting all completed...')
+  protected async deleteAllCompleted(): Promise<void> {
+    await this.api.DeleteAllCompleted();
+
+    this.todos = this.todos.filter(todo => !todo.isCompleted);
   }
 
   protected trackBy(index: number, todo: Todo) {
-    return todo.id
+    return `${todo.id}${todo.isCompleted}`;
   }
 }

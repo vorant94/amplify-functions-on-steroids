@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "functionsonsteroids",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-07-04T05:43:57.568Z"
 }

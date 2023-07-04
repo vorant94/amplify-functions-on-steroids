@@ -15,7 +15,7 @@
     <mat-list>
       <mat-list-item *ngFor="let todo of todos; index as index; trackBy: trackBy">
         <mat-checkbox [checked]="todo.isCompleted ?? false"
-                      (change)="setIsCompleted(todo.id, $event.checked, index)">
+                      (change)="toggleIsCompleted(index)">
           {{todo.title}}
         </mat-checkbox>
       </mat-list-item>

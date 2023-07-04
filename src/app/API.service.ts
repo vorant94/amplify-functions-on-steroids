@@ -15,6 +15,15 @@ export type __SubscriptionContainer = {
   onDeleteTodo: OnDeleteTodoSubscription;
 };
 
+export type Todo = {
+  __typename: "Todo";
+  id: string;
+  title: string;
+  isCompleted?: boolean | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateTodoInput = {
   id?: string | null;
   title: string;
@@ -73,15 +82,6 @@ export type ModelBooleanInput = {
   eq?: boolean | null;
   attributeExists?: boolean | null;
   attributeType?: ModelAttributeTypes | null;
-};
-
-export type Todo = {
-  __typename: "Todo";
-  id: string;
-  title: string;
-  isCompleted?: boolean | null;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type UpdateTodoInput = {
@@ -168,6 +168,15 @@ export type ModelSubscriptionBooleanInput = {
   eq?: boolean | null;
 };
 
+export type ToggleIsCompletedMutation = {
+  __typename: "Todo";
+  id: string;
+  title: string;
+  isCompleted?: boolean | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateTodoMutation = {
   __typename: "Todo";
   id: string;
@@ -248,6 +257,39 @@ export type OnDeleteTodoSubscription = {
   providedIn: "root"
 })
 export class APIService {
+  async DeleteAllCompleted(): Promise<boolean | null> {
+    const statement = `mutation DeleteAllCompleted {
+        deleteAllCompleted
+      }`;
+    const response = (await API.graphql(graphqlOperation(statement))) as any;
+    return <boolean | null>response.data.deleteAllCompleted;
+  }
+  async MarkAllAsComplete(): Promise<boolean | null> {
+    const statement = `mutation MarkAllAsComplete {
+        markAllAsComplete
+      }`;
+    const response = (await API.graphql(graphqlOperation(statement))) as any;
+    return <boolean | null>response.data.markAllAsComplete;
+  }
+  async ToggleIsCompleted(id: string): Promise<ToggleIsCompletedMutation> {
+    const statement = `mutation ToggleIsCompleted($id: ID!) {
+        toggleIsCompleted(id: $id) {
+          __typename
+          id
+          title
+          isCompleted
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ToggleIsCompletedMutation>response.data.toggleIsCompleted;
+  }
   async CreateTodo(
     input: CreateTodoInput,
     condition?: ModelTodoConditionInput

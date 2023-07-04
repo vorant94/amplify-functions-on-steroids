@@ -1,0 +1,4 @@
+schema:
+  - appsync.graphql
+  - amplify/backend/api/functionsonsteroids/build/schema.graphql
+documents: '**/*.graphql'

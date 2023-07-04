@@ -1,4 +1,5 @@
 # this is an auto generated file. This will be overwritten
+
 subscription OnCreateTodo($filter: ModelSubscriptionTodoFilterInput) {
   onCreateTodo(filter: $filter) {
     id
@@ -6,8 +7,10 @@ subscription OnCreateTodo($filter: ModelSubscriptionTodoFilterInput) {
     isCompleted
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput) {
   onUpdateTodo(filter: $filter) {
     id
@@ -15,8 +18,10 @@ subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput) {
     isCompleted
     createdAt
     updatedAt
+    __typename
   }
 }
+
 subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput) {
   onDeleteTodo(filter: $filter) {
     id
@@ -24,5 +29,6 @@ subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput) {
     isCompleted
     createdAt
     updatedAt
+    __typename
   }
 }

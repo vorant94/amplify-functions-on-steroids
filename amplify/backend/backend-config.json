@@ -4,10 +4,16 @@
       "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2023-07-11T05:43:48.892Z",
+              "apiKeyExpirationDays": 7,
+              "description": ""
             },
             "authenticationType": "API_KEY"
           }
@@ -15,6 +21,106 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
+    }
+  },
+  "function": {
+    "fosDeleteAllCompleted": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "functionsonsteroids"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fosMarkAllAsComplete": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "functionsonsteroids"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fosToggleIsCompleted": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "functionsonsteroids"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_fosDeleteAllCompleted_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosDeleteAllCompleted"
+        }
+      ]
+    },
+    "AMPLIFY_function_fosDeleteAllCompleted_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosDeleteAllCompleted"
+        }
+      ]
+    },
+    "AMPLIFY_function_fosMarkAllAsComplete_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosMarkAllAsComplete"
+        }
+      ]
+    },
+    "AMPLIFY_function_fosMarkAllAsComplete_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosMarkAllAsComplete"
+        }
+      ]
+    },
+    "AMPLIFY_function_fosToggleIsCompleted_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosToggleIsCompleted"
+        }
+      ]
+    },
+    "AMPLIFY_function_fosToggleIsCompleted_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fosToggleIsCompleted"
+        }
+      ]
     }
   }
 }
