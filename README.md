@@ -1,27 +1,28 @@
 # AmplifyFunctionsOnSteroids
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.8.
+An example project for demonstration how boost AWS Amplify Functions by enabling:
 
-## Development server
+- TypeScript support
+- shared code between different lambdas
+- Amplify CLI Codegen for both UI and lambdas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Actual post
 
-## Code scaffolding
+[AWS Amplify Functions on steroids](https://vorant94.medium.com/aws-amplify-functions-on-steroids-bffbfc09960c)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# TL;DR
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- add yourself into `custom-roles.json` to be able to mock functions
+- add a new function by running `amplify add function`
+- make sure it's type is `commonjs` in `package.json`
+- go over official guide [here](https://docs.amplify.aws/cli/function/build-options/)
+- move `event.json` from `src` to `events` folder
+- add all `.js` files in `src` folder to `.gitignore`
+- duplicate all lambdas deps as devDeps in root `package.json`
+- download and edit `amplify.yml` that is responsible for CI/CD
+- add Angular project to store shared code
+- replace `rootDir` of lambda `tsconfig.json` with `rootDirs`
+- update `Handler` property in lambda CloudFormation template
+- add aliases to `tsconfig.json` in order to make imports shorter
+- add `ts-alias` to `amplify:...` scripts from the official guide
+- manually edit `.graphqlconfig.yml` to enable multi-target codegen
