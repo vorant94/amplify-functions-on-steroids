@@ -12,7 +12,43 @@ projects:
         docsFilePath: src/graphql
         region: eu-central-1
         apiId: null
-        maxDepth: 2
+
+  fosDeleteAllCompleted:
+    schemaPath: amplify/backend/api/functionsonsteroids/build/schema.graphql
+    includes:
+      - amplify/backend/function/fosDeleteAllCompleted/lib/generated/*.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: amplify/backend/function/fosDeleteAllCompleted/lib/generated/types.ts
+        docsFilePath: amplify/backend/function/fosDeleteAllCompleted/lib/generated/
+        region: eu-central-1
+        apiId: null
+
+  fosMarkAllAsComplete:
+    schemaPath: amplify/backend/api/functionsonsteroids/build/schema.graphql
+    includes:
+      - amplify/backend/function/fosMarkAllAsComplete/lib/generated/*.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: amplify/backend/function/fosMarkAllAsComplete/lib/generated/types.ts
+        docsFilePath: amplify/backend/function/fosMarkAllAsComplete/lib/generated/
+        region: eu-central-1
+        apiId: null
+
+  fosToggleIsCompleted:
+    schemaPath: amplify/backend/api/functionsonsteroids/build/schema.graphql
+    includes:
+      - amplify/backend/function/fosToggleIsCompleted/lib/generated/*.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: amplify/backend/function/fosToggleIsCompleted/lib/generated/types.ts
+        docsFilePath: amplify/backend/function/fosToggleIsCompleted/lib/generated/
+        region: eu-central-1
+        apiId: null
+
 extensions:
   amplify:
     version: 3

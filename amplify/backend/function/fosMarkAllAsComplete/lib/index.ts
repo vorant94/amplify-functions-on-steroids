@@ -9,21 +9,19 @@ Amplify Params - DO NOT EDIT */
 import {AmplifyGraphQlResolverHandler} from "aws-lambda";
 import {
   ListTodosQuery,
-  ListTodosQueryResponse,
   ListTodosQueryVariables,
   MarkAllAsCompleteMutation,
-  MarkAllAsCompleteMutationVariables,
   UpdateTodoMutation,
-  UpdateTodoMutationResponse,
   UpdateTodoMutationVariables
-} from "./app-sync.models";
+} from "./generated/types";
 import {appSyncRequest} from "@lambda-shared";
-
+import * as queries from './generated/queries';
+import * as mutations from './generated/mutations';
 
 export const handler: AmplifyGraphQlResolverHandler<
-  MarkAllAsCompleteMutationVariables,
   unknown,
-  MarkAllAsCompleteMutation
+  unknown,
+  MarkAllAsCompleteMutation['markAllAsComplete']
 > = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event, null, 2)}`);
 
@@ -38,23 +36,7 @@ export const handler: AmplifyGraphQlResolverHandler<
   return true;
 }
 
-async function getUncompletedTodos(): Promise<ListTodosQuery> {
-  const query = /* GraphQL */ `
-    query ListTodos($filter: ModelTodoFilterInput) {
-      listTodos(filter: $filter) {
-        __typename
-        items {
-          __typename
-          id
-          title
-          isCompleted
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-    }
-  `;
+async function getUncompletedTodos(): Promise<NonNullable<ListTodosQuery['listTodos']>> {
   const variables: ListTodosQueryVariables = {
     filter: {
       isCompleted: {
@@ -64,28 +46,16 @@ async function getUncompletedTodos(): Promise<ListTodosQuery> {
   };
 
   const { listTodos } = await appSyncRequest<
-    ListTodosQueryResponse,
+    ListTodosQuery,
     ListTodosQueryVariables
-  >(query, variables);
+  >(queries.listTodos, variables);
 
-  return listTodos;
+  return listTodos!;
 }
 
 async function markAsCompleted(
-  todo: NonNullable<ListTodosQuery['items'][number]>
-): Promise<UpdateTodoMutation> {
-  const query = /* GraphQL */ `
-    mutation UpdateTodo($input: UpdateTodoInput!) {
-      updateTodo(input: $input) {
-        id
-        title
-        isCompleted
-        createdAt
-        updatedAt
-        __typename
-      }
-    }
-  `;
+  todo: NonNullable<NonNullable<ListTodosQuery['listTodos']>['items'][number]>
+): Promise<NonNullable<UpdateTodoMutation['updateTodo']>> {
   const variables: UpdateTodoMutationVariables = {
     input: {
       id: todo.id,
@@ -94,9 +64,9 @@ async function markAsCompleted(
   };
 
   const { updateTodo } = await appSyncRequest<
-    UpdateTodoMutationResponse,
+    UpdateTodoMutation,
     UpdateTodoMutationVariables
-  >(query, variables);
+  >(mutations.updateTodo, variables);
 
-  return updateTodo;
+  return updateTodo!;
 }

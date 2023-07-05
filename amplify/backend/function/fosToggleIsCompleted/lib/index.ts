@@ -9,20 +9,20 @@ Amplify Params - DO NOT EDIT */
 import {AmplifyGraphQlResolverHandler} from "aws-lambda";
 import {
   GetTodoQuery,
-  GetTodoQueryResponse,
-  GetTodosQueryVariables,
+  GetTodoQueryVariables,
   ToggleIsCompletedMutation,
   ToggleIsCompletedMutationVariables,
   UpdateTodoMutation,
-  UpdateTodoMutationResponse,
   UpdateTodoMutationVariables
-} from "./app-sync.models";
+} from "./generated/types";
 import {appSyncRequest} from "@lambda-shared";
+import * as queries from './generated/queries';
+import * as mutations from './generated/mutations';
 
 export const handler: AmplifyGraphQlResolverHandler<
   ToggleIsCompletedMutationVariables,
   unknown,
-  ToggleIsCompletedMutation
+  ToggleIsCompletedMutation["toggleIsCompleted"]
 > = async (event) => {
   console.log(`EVENT: ${JSON.stringify(event, null, 2)}`);
 
@@ -34,42 +34,22 @@ export const handler: AmplifyGraphQlResolverHandler<
   return updated;
 };
 
-async function getTodo(id: GetTodosQueryVariables['id']): Promise<GetTodoQuery> {
-  const query = /* GraphQL */ `
-    query GetTodo($id: ID!) {
-      getTodo(id: $id) {
-        id
-        title
-        isCompleted
-        createdAt
-        updatedAt
-        __typename
-      }
-    }
-  `;
-  const variables: GetTodosQueryVariables = { id };
+async function getTodo(
+  id: GetTodoQueryVariables['id']
+): Promise<NonNullable<GetTodoQuery['getTodo']>> {
+  const variables: GetTodoQueryVariables = { id };
 
   const { getTodo } = await appSyncRequest<
-    GetTodoQueryResponse,
-    GetTodosQueryVariables
-  >(query, variables);
+    GetTodoQuery,
+    GetTodoQueryVariables
+  >(queries.getTodo, variables);
 
-  return getTodo;
+  return getTodo!;
 }
 
-async function toggleIsCompleted(todo: GetTodoQuery): Promise<UpdateTodoMutation> {
-  const query = /* GraphQL */ `
-    mutation UpdateTodo($input: UpdateTodoInput!) {
-      updateTodo(input: $input) {
-        id
-        title
-        isCompleted
-        createdAt
-        updatedAt
-        __typename
-      }
-    }
-  `;
+async function toggleIsCompleted(
+  todo: NonNullable<GetTodoQuery['getTodo']>
+): Promise<NonNullable<UpdateTodoMutation['updateTodo']>> {
   const variables: UpdateTodoMutationVariables = {
     input: {
       id: todo.id,
@@ -78,9 +58,9 @@ async function toggleIsCompleted(todo: GetTodoQuery): Promise<UpdateTodoMutation
   };
 
   const { updateTodo } = await appSyncRequest<
-    UpdateTodoMutationResponse,
+    UpdateTodoMutation,
     UpdateTodoMutationVariables
-  >(query, variables);
+  >(mutations.updateTodo, variables);
 
-  return updateTodo;
+  return updateTodo!;
 }
