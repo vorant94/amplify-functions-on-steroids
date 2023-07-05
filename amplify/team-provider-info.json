@@ -18,15 +18,15 @@
       "function": {
         "fosMarkAllAsComplete": {
           "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
-          "s3Key": "amplify-builds/fosMarkAllAsComplete-522b69575441487a334a-build.zip"
+          "s3Key": "amplify-builds/fosMarkAllAsComplete-44516b544f3339542b62-build.zip"
         },
         "fosDeleteAllCompleted": {
           "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
-          "s3Key": "amplify-builds/fosDeleteAllCompleted-3963796473495968546c-build.zip"
+          "s3Key": "amplify-builds/fosDeleteAllCompleted-344344565630557a7075-build.zip"
         },
         "fosToggleIsCompleted": {
           "deploymentBucketName": "amplify-functionsonsteroids-dev-184603-deployment",
-          "s3Key": "amplify-builds/fosToggleIsCompleted-4f576c34484c6a6c7536-build.zip"
+          "s3Key": "amplify-builds/fosToggleIsCompleted-33682b41446d3364444d-build.zip"
         }
       }
     }

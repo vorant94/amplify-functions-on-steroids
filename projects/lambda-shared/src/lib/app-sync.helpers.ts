@@ -5,13 +5,13 @@ import {Sha256} from "@aws-crypto/sha256-js";
 import {HttpRequest} from "@aws-sdk/protocol-http";
 import {default as fetch, Request} from 'node-fetch';
 
-const GRAPHQL_ENDPOINT = process.env.API_FUNCTIONSONSTEROIDS_GRAPHQLAPIENDPOINTOUTPUT;
-const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
+const GRAPHQL_ENDPOINT = process.env['API_FUNCTIONSONSTEROIDS_GRAPHQLAPIENDPOINTOUTPUT']!;
+const AWS_REGION = process.env['AWS_REGION'] || 'us-east-1';
 
 export async function appSyncRequest<TResponse = any, TVariables = any>(
   query: string,
   variables: TVariables
-): Promise<GraphQLResult<TResponse>['data']> {
+): Promise<NonNullable<GraphQLResult<TResponse>['data']>> {
   const endpoint = new URL(GRAPHQL_ENDPOINT);
 
   const signer = new SignatureV4({

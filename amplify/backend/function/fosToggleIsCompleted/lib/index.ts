@@ -17,7 +17,7 @@ import {
   UpdateTodoMutationResponse,
   UpdateTodoMutationVariables
 } from "./app-sync.models";
-import {appSyncRequest} from "./app-sync.helpers";
+import {appSyncRequest} from "@lambda-shared";
 
 export const handler: AmplifyGraphQlResolverHandler<
   ToggleIsCompletedMutationVariables,

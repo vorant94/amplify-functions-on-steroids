@@ -17,7 +17,7 @@ import {
   UpdateTodoMutationResponse,
   UpdateTodoMutationVariables
 } from "./app-sync.models";
-import {appSyncRequest} from "./app-sync.helpers";
+import {appSyncRequest} from "@lambda-shared";
 
 
 export const handler: AmplifyGraphQlResolverHandler<
@@ -28,7 +28,11 @@ export const handler: AmplifyGraphQlResolverHandler<
   console.log(`EVENT: ${JSON.stringify(event, null, 2)}`);
 
   const { items } = await getUncompletedTodos();
-  await Promise.all(items.map(todo => markAsCompleted(todo)));
+  await Promise.all(
+    items
+      .filter(todo => !!todo)
+      .map(todo => markAsCompleted(todo!))
+  );
 
   console.log(`RESPONSE: `);
   return true;
@@ -68,7 +72,7 @@ async function getUncompletedTodos(): Promise<ListTodosQuery> {
 }
 
 async function markAsCompleted(
-  todo: ListTodosQuery['items'][number]
+  todo: NonNullable<ListTodosQuery['items'][number]>
 ): Promise<UpdateTodoMutation> {
   const query = /* GraphQL */ `
     mutation UpdateTodo($input: UpdateTodoInput!) {

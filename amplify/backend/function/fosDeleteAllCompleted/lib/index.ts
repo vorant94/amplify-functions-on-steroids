@@ -17,7 +17,7 @@ import {
   ListTodosQueryResponse,
   ListTodosQueryVariables
 } from "./app-sync.models";
-import {appSyncRequest} from "./app-sync.helpers";
+import {appSyncRequest} from "@lambda-shared";
 
 
 export const handler: AmplifyGraphQlResolverHandler<
@@ -28,7 +28,11 @@ export const handler: AmplifyGraphQlResolverHandler<
   console.log(`EVENT: ${JSON.stringify(event, null, 2)}`);
 
   const { items } = await getCompletedTodos();
-  await Promise.all(items.map(todo => deleteTodo(todo)));
+  await Promise.all(
+    items
+      .filter(todo => !!todo)
+      .map(todo => deleteTodo(todo!))
+  );
 
   console.log(`RESPONSE: `);
   return true;
@@ -68,7 +72,7 @@ async function getCompletedTodos(): Promise<ListTodosQuery> {
 }
 
 async function deleteTodo(
-  todo: ListTodosQuery['items'][number]
+  todo: NonNullable<ListTodosQuery['items'][number]>
 ): Promise<DeleteTodoMutation> {
   const query = /* GraphQL */ `
     mutation DeleteTodo($input: DeleteTodoInput!) {

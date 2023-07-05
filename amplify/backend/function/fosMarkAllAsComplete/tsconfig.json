@@ -1,4 +1,5 @@
 {
+  "extends": "../../../../tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "lib": ["dom", "esnext"],
@@ -8,9 +9,17 @@
     "resolveJsonModule": true,
     "outDir": "./src",
     "baseUrl": "./",
-    "rootDir": "./lib",
+    "rootDirs": [
+      "./lib",
+      "../../../../projects/lambda-shared/src"
+    ],
     "paths": {
-      "src": ["./lib"]
+      "src": [
+        "./lib"
+      ],
+      "@lambda-shared": [
+        "../../../../projects/lambda-shared/src/public-api"
+      ]
     }
   }
 }
